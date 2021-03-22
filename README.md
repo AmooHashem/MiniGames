@@ -1,9 +1,9 @@
-# Workshop Frontend
+# MiniGames
 
 ## Installation
 
-- `git clone https://github.com/Rastaiha/rasta_workshop_frontend.git`
-- `cd rasta_workshop_frontend`
+- `git clone https://github.com/AmooHashem/MiniGames.git`
+- `cd MiniGames`
 - `yarn`
 - `yarn start`
 - visit http://localhost:3000/
