@@ -1,28 +1,34 @@
 import {
   Button,
+  Container,
   Fab,
   Grid,
   makeStyles,
   Paper,
   Typography,
 } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
-import { KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
-import clsx from 'clsx';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import ComplexSystem2 from './MiniGames/ComplexSystem2';
 
 const useStyles = makeStyles((theme) => ({
+  body: {
+    height: '100vh',
+    width: '100vw',
+  }
 }));
 
 function Homepage() {
+  const classes = useStyles();
   return (
     <>
-      salam
-      <a href='https://google.com'>
-        salam
-      </a>
+      <ol>
+        <li>
+          <a href='/complex-system-2'>
+            {'بازی دوم سیستم‌های پیچیده'}
+          </a>
+        </li>
+      </ol>
     </>
   );
 }
