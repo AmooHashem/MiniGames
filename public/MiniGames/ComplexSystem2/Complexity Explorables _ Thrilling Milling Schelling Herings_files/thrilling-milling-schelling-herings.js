@@ -82,14 +82,14 @@ var buttons = [
 
 // now the sliders for the fish
 
-var speed_happy = { id: "speed_happy", name: "Speed when happy", range: [0.1, 1], value: def_speed_happy };
-var speed_unhappy = { id: "speed_unhappy", name: "Speed when unhappy", range: [0.2, 1.5], value: def_speed_unhappy };
-var R_hood = { id: "rhood", name: "Schelling radius", range: [0, 35], value: def_R_hood };
+var speed_happy = { id: "speed_happy", name: "سرعت هنگام خوش‌حال‌بودن", range: [0.1, 1], value: def_speed_happy };
+var speed_unhappy = { id: "speed_unhappy", name: "سرعت هنگام خوش‌حال‌نبودن", range: [0.2, 1.5], value: def_speed_unhappy };
+var R_hood = { id: "rhood", name: "schelling شعاعِ", range: [0, 35], value: def_R_hood };
 var tolerance = { id: "tolerance", name: "Tolerance", range: [0, 1], value: def_tolerance };
 
-var noise_heading = { id: "noise_heading", name: "Wiggle", range: [0, 30], value: def_noise_heading };
-var R_align = { id: "ralign", name: "Alignment radius", range: [0, 10], value: def_R_align };
-var R_attract = { id: "rattract", name: "Attraction radius", range: [0, 25], value: def_R_attract };
+var noise_heading = { id: "noise_heading", name: "جنبیدن", range: [0, 30], value: def_noise_heading };
+var R_align = { id: "ralign", name: "شعاع هم‌سو‌شدن", range: [0, 10], value: def_R_align };
+var R_attract = { id: "rattract", name: "شعاع جذب‌شدن", range: [0, 25], value: def_R_attract };
 
 var cm_sliderwidth = cm_sliderblock.w();
 var sch_sliderwidth = sch_sliderblock.w();
@@ -110,8 +110,8 @@ var sch_slider = [
 ]
 
 
-var schell = { id: "schelling", name: "turn off happiness effect", value: false };
-var polarity = { id: "polarity", name: "others make me happy", value: false };
+var schell = { id: "schelling", name: "خاموش‌کردن تاثیر خوش‌حالی", value: false };
+var polarity = { id: "polarity", name: "دیگران مرا خوش‌حال می‌کنند", value: false };
 
 
 var tog = [
@@ -122,7 +122,10 @@ var tog = [
 var Ntypes = {
   id: "Ntypes",
   name: "Ntypes",
-  choices: ["2 types", "3 types", "4 types"],
+  choices:
+    ["دو نوع ماهی",
+      "سه نوع ماهی",
+      "چهار نوع ماهی"],
   value: 0
 }
 

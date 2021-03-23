@@ -25,7 +25,7 @@ function Homepage() {
       <ol>
         <li>
           <a href='/complex-system-2'>
-            {'بازی دوم سیستم‌های پیچیده'}
+            {'رفتار جمعی ماهی‌ها'}
           </a>
         </li>
       </ol>

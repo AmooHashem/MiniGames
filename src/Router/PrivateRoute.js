@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-import ComplexSystem2 from '../MiniGames/ComplexSystem2';
 
 const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => {
   return (
