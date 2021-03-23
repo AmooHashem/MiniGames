@@ -24,6 +24,11 @@ function Homepage() {
     <>
       <ol>
         <li>
+          <a href='/complex-system-1'>
+            {'بازی زندگی کانوی'}
+          </a>
+        </li>
+        <li>
           <a href='/complex-system-2'>
             {'رفتار جمعی ماهی‌ها'}
           </a>
