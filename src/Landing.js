@@ -33,6 +33,11 @@ function Homepage() {
             {'رفتار جمعی ماهی‌ها'}
           </a>
         </li>
+        <li>
+          <a href='/complex-system-3'>
+            {'بهینه‌سازی مورچه‌ها'}
+          </a>
+        </li>
       </ol>
     </>
   );
