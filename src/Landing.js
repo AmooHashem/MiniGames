@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import ComplexSystem2 from './MiniGames/ComplexSystem2';
+import ComplexSystem2 from './MiniGames/Collective_Behavior_Of_Fish';
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -24,17 +24,17 @@ function Homepage() {
     <>
       <ol>
         <li>
-          <a href='/complex-system-1'>
+          <a href='/Conways_Game_Of_Life'>
             {'بازی زندگی کانوی'}
           </a>
         </li>
         <li>
-          <a href='/complex-system-2'>
+          <a href='/Collective_Behavior_Of_Fish'>
             {'رفتار جمعی ماهی‌ها'}
           </a>
         </li>
         <li>
-          <a href='/complex-system-3'>
+          <a href='/Ant_Colony_Optimization'>
             {'بهینه‌سازی مورچه‌ها'}
           </a>
         </li>
