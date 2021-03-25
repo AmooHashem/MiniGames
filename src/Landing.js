@@ -38,6 +38,11 @@ function Homepage() {
             {'بهینه‌سازی مورچه‌ها'}
           </a>
         </li>
+        <li>
+          <a href='/Tarkibiat'>
+            {'گراف ترکیبیات'}
+          </a>
+        </li>
       </ol>
     </>
   );

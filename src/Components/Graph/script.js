@@ -23,14 +23,35 @@ class Node {
       neighbor != nodeId
     });
   }
+
+  export() {
+    return ({
+      id: toString(this.id),
+      size: this.isSelected ? 30 : 20,
+    })
+  }
+}
+
+class Link {
+  constructor(node1Id, node2Id) {
+    this.source = Math.min(node1Id, node2Id);
+    this.target = Math.max(node1Id, node2Id);
+  }
+
+  export() {
+    return ({
+      source: toString(this.source),
+      target: toString(this.target),
+    })
+  }
 }
 
 class Graph {
   initialNodeId = 0;
   selectedNodes = [];
-  selectedEdges = [];
+  selectedLinks = [];
   nodes = [];
-  edges = [];
+  links = [];
 
   addNewNode() {
     const node = new Node(this.initialNodeId);
@@ -70,32 +91,52 @@ class Graph {
     }
   }
 
-  addEdgesBetweenSelectedNodes() {
-    for (let i = 0; i < this.selectedNodes.length; i++) {
-      for (let j = i + 1; j < this.selectedNodes.length; j++) {
-        let minVal = Math.min(this.selectedNodes[i], this.selectedNodes[j]);
-        let maxVal = Math.max(this.selectedNodes[i], this.selectedNodes[j]);
-        if (!this.selectedEdges.includes([minVal, maxVal])) {
-          this.selectedEdges.push([minVal, maxVal]);
-        }
-      }
+  _addLink(node1Id, node2Id) {
+    const tmp = this.links.forEach((link) =>
+      (link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id))
+    )
+    if (tmp.length == 0) {
+      this.links.push(new Link(node1Id, node2Id));
+      console.log("Link added successfully!");
+      return true;
+    } else {
+      console.log("Link already exists.");
+      return false;
     }
-    console.log('Edges added successfully!');
   }
 
-  removeEdgesBetweenSelectedNodes() {
+  _removeLink(node1Id, node2Id) {
+    const tmp = this.links.forEach((link) =>
+      (link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id))
+    )
+    if (tmp.length > 0) {
+      this.links = this.links.forEach((link) =>
+        (link.source != Math.min(node1Id, node2Id) || link.target != Math.max(node1Id, node2Id))
+      )
+      console.log("Link removed successfully!");
+      return true;
+    } else {
+      console.log('Link doesn\'t exist.');
+      return false;
+    }
+  }
+
+  addLinksBetweenSelectedNodes() {
     for (let i = 0; i < this.selectedNodes.length; i++) {
       for (let j = i + 1; j < this.selectedNodes.length; j++) {
-        let minVal = Math.min(this.selectedNodes[i], this.selectedNodes[j]);
-        let maxVal = Math.max(this.selectedNodes[i], this.selectedNodes[j]);
-        this.selectedEdges = this.selectedEdges.filter((edge) => edge !== [minVal, maxVal]);
+        this._addLink(this.selectedNodes[i], this.selectedNodes[j])
       }
     }
-    console.log('Edges removed successfully!');
+    console.log('Links added successfully!');
   }
+
+  removeLinksBetweenSelectedNodes() {
+    for (let i = 0; i < this.selectedNodes.length; i++) {
+      for (let j = i + 1; j < this.selectedNodes.length; j++) {
+        this._removeLink(this.selectedNodes[i], this.selectedNodes[j]);
+      }
+    }
+    console.log('Links removed successfully!');
+  }
+
 }
-
-class TarkibiatGraph extends Graph {
-
-}
-
