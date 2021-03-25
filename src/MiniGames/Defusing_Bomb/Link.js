@@ -2,11 +2,15 @@ import React from 'react';
 
 
 const Line = ({ link, ...restProps }) => {
-  
+
   return (
-    <line
-      {...restProps}
-    />
+    <>
+      <line
+        {...restProps}
+        stroke={link.color ? link.color : '#000000'}
+        strokeWidth='3'
+      />
+    </>
   )
 };
 

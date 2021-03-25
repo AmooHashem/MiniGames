@@ -1,51 +1,28 @@
 import React from 'react';
 
-const fontSize = 14;
-const radius = 20;
-
 const Node = ({ node }) => {
-  // sizes
-  const sizes = {
-    radius: radius,
-    textSize: fontSize,
-    textX: radius * 1.5,
-    textY: radius / 2,
-  };
-  const sizesImg = {
-    radius: 30,
-    textSize: fontSize,
-    textX: 30 * 1.5,
-    textY: 30 / 2,
-  };
+
+  const size = 20;
+  if (!node.isSelected) {
+    node.size = 30;
+  }
 
   return (
     <>
-      {
-        node.img
-          ? (
-            <image
-              href={node.img}
-              x="0"
-              y="0"
-              height={sizesImg.radius * 2}
-              width={sizesImg.radius * 2}
-              style={{
-                transform: `translate(-${sizesImg.radius}px, -${sizesImg.radius}px)`,
-              }}
-            />
-          )
-          : (
-            <circle
-              r={sizes.radius}
-            />
-          )
-      }
-      <g style={{ fontSize: sizes.textSize + 'px' }}>
+      <circle
+        fill={node.color ? node.color : 'white'}
+        strokeWidth={size / 10}
+        stroke={node.color ? node.color : 'black'}
+        r={size}
+      />
+      <g >
         <text
-          x={node.img ? sizesImg.radius + 7 : sizes.radius + 7}
-          y={node.img ? (sizesImg.radius / 2) - sizesImg.textSize : sizes.radius / 2}
+          fontSize={size}
+          fontWeight='bold'
+          x={size / 4}
+          y={size / 3}
         >
-          {node.name}
+          {node.id ? node.id : '۸'}
         </text>
       </g>
     </>

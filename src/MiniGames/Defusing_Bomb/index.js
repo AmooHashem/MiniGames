@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import Graph from 'react-graph-network';
 
-import Node from './Node';
 import Link from './Link';
+import Node from './Node';
 
 const useStyles = makeStyles((theme) => ({
   div: {
@@ -29,8 +29,10 @@ const data = {
     { id: "Fbc9iwnJl" },
   ],
   links: [
-    { "source": "HkqEDLvxE", "target": "011jVS4rb" },
-    { "source": "011jVS4rb", "target": "PXACjDxmR" },
+    { "source": "HkqEDLvxE", "target": "011jVS4rb", color: 'blue' },
+    { "source": "HkqEDLvxE", "target": "011jVS4rb", color: 'red' },
+
+    { "source": "011jVS4rb", "target": "PXACjDxmR", color: 'orange' },
     { "source": "PXACjDxmR", "target": "kuVISwh7w" },
     { "source": "PXACjDxmR", "target": "Fbc9iwnJl" },
     { "source": "PXACjDxmR", "target": "UIEjvLJMd" },
@@ -50,7 +52,7 @@ function index() {
         draggable
         data={data}
         NodeComponent={Node}
-        // LineComponent={Link}
+        LineComponent={Link}
         nodeDistance={1000}
         enableDrag={true}
       />
