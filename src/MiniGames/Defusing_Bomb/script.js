@@ -1,16 +1,5 @@
-const INITIAL_INFO = {
-  data: {
-    nodes: [
+import Graph from '../../Components/Graph';
 
-    ],
-    links: [
+const a = new Graph();
 
-    ]
-  }
-}
-
-export class MiniGame {
-  constructor() {
-
-  }
-}
+export { a };
