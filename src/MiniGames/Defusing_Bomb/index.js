@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Graph from 'react-graph-network';
 
 import Link from './Link';
@@ -17,39 +17,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const data = {
+const initialData = {
   nodes: [
-    { id: "HkqEDLvxE" },
-    { id: "011jVS4rb" },
-    { id: "PXACjDxmR" },
-    { id: "kuVISwh7w" },
-    { id: "UIEjvLJMd" },
-    { id: "ZVi8fWDBx" },
-    { id: "H-06WvsfJ" },
-    { id: "Fbc9iwnJl" },
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' },
+    { id: '6' },
+    { id: '7' },
+    { id: '8' },
   ],
   links: [
-    { "source": "HkqEDLvxE", "target": "011jVS4rb", color: 'blue' },
-    { "source": "HkqEDLvxE", "target": "011jVS4rb", color: 'red' },
+    { "source": '1', "target": '2', color: 'blue' },
+    { "source": '1', "target": '2', color: 'red' },
 
-    { "source": "011jVS4rb", "target": "PXACjDxmR", color: 'orange' },
-    { "source": "PXACjDxmR", "target": "kuVISwh7w" },
-    { "source": "PXACjDxmR", "target": "Fbc9iwnJl" },
-    { "source": "PXACjDxmR", "target": "UIEjvLJMd" },
-    { "source": "kuVISwh7w", "target": "UIEjvLJMd" },
-    { "source": "UIEjvLJMd", "target": "ZVi8fWDBx" },
-    { "source": "ZVi8fWDBx", "target": "H-06WvsfJ" },
-    { "source": "H-06WvsfJ", "target": "Fbc9iwnJl" }
+    { "source": '3', "target": '4', color: 'orange' },
+    { "source": '5', "target": '4', color: 'orange' },
+    { "source": '6', "target": '4', color: 'orange' },
+    { "source": '7', "target": '4', color: 'orange' },
+    { "source": '8', "target": '4', color: 'orange' },
   ]
 };
 
 
 function index() {
   const classes = useStyles();
+  const [data, setData] = useState(initialData);
+
+
+  useEffect(() => {
+    setTimeout(
+      () => {
+        setData({
+          ...data,
+          nodes: [
+            ...data.nodes,
+            { id: '9' }
+          ]
+        })
+        console.log(data)
+      }
+      , 2000)
+  }, [])
+
+
   return (
     <div style={{ height: '100vh' }}>
       <Graph
-        draggable
         data={data}
         NodeComponent={Node}
         LineComponent={Link}
