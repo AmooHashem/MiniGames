@@ -2,7 +2,8 @@ class Node {
   neighborsId = [];
   isSelected = false;
 
-  constructor(id) {
+  constructor(id, rerender) {
+    this.rerender = rerender;
     this.id = id;
   }
 
@@ -24,80 +25,79 @@ class Node {
     });
   }
 
+  changeSelection() {
+    this.isSelected = !this.isSelected;
+    this.rerender();
+  }
+
   export() {
     return ({
-      id: toString(this.id),
-      size: this.isSelected ? 30 : 20,
+      id: this.id,
+      isSelected: this.isSelected,
+      changeSelection: this.changeSelection,
     })
   }
 }
 
+
+
 class Link {
-  constructor(node1Id, node2Id) {
+  isSelected = false;
+
+  constructor(node1Id, node2Id, rerender) {
+    this.rerender = rerender;
     this.source = Math.min(node1Id, node2Id);
     this.target = Math.max(node1Id, node2Id);
   }
 
+  changeSelection() {
+    this.isSelected = !this.isSelected;
+    this.rerender();
+  }
+
   export() {
     return ({
-      source: toString(this.source),
-      target: toString(this.target),
+      source: this.source,
+      target: this.target,
+      isSelected: this.isSelected,
+      changeSelection: this.changeSelection.bind(this),
     })
   }
 }
 
-class Graph {
+export class MyGraph {
   initialNodeId = 0;
-  selectedNodes = [];
-  selectedLinks = [];
   nodes = [];
   links = [];
 
+  constructor(rerender) {
+    this.rerender = rerender;
+  }
+
   addNewNode() {
-    const node = new Node(this.initialNodeId);
+    const node = new Node(this.initialNodeId, this.rerender);
     this.initialNodeId++;
     this.nodes.push(node);
     console.log('New node added!');
+    this.rerender();
     return true;
   }
 
   removeNode(nodeId) {
     this.nodes = this.nodes.filter((node) => node.id != nodeId);
     console.log('Node removed successfully.');
+    this.rerender();
     return true;
   }
 
-  selectNode(nodeId) {
-    if (!this.selectedNodes.includes(nodeId)) {
-      this.selectedNodes.push(nodeId);
-      console.log('Node selected successfully.');
-      return true;
-    }
-    else {
-      console.log('This node is already selected.');
-      return false;
-    }
-  }
-
-  unselectNode(nodeId) {
-    if (this.selectedNodes.includes(nodeId)) {
-      let i = this.selectedNodes.indexOf(nodeId);
-      this.selectedNodes.splice(i, 1);
-      console.log('Node unselected successfully.');
-      return true;
-    } else {
-      console.log('This node isn\'t already selected.');
-      return false;
-    }
-  }
-
-  _addLink(node1Id, node2Id) {
+  addLink(node1Id, node2Id) {
     const tmp = this.links.forEach((link) =>
       (link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id))
-    )
+    ) || []
     if (tmp.length == 0) {
-      this.links.push(new Link(node1Id, node2Id));
+      this.links.push(new Link(node1Id, node2Id, this.rerender));
       console.log("Link added successfully!");
+      this.rerender();
       return true;
     } else {
       console.log("Link already exists.");
@@ -105,7 +105,7 @@ class Graph {
     }
   }
 
-  _removeLink(node1Id, node2Id) {
+  removeLink(node1Id, node2Id) {
     const tmp = this.links.forEach((link) =>
       (link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id))
     )
@@ -114,6 +114,7 @@ class Graph {
         (link.source != Math.min(node1Id, node2Id) || link.target != Math.max(node1Id, node2Id))
       )
       console.log("Link removed successfully!");
+      this.rerender();
       return true;
     } else {
       console.log('Link doesn\'t exist.');
@@ -122,21 +123,35 @@ class Graph {
   }
 
   addLinksBetweenSelectedNodes() {
-    for (let i = 0; i < this.selectedNodes.length; i++) {
-      for (let j = i + 1; j < this.selectedNodes.length; j++) {
-        this._addLink(this.selectedNodes[i], this.selectedNodes[j])
+    const selectedNodes = this.nodes.filter((node) => node.isSelected).map((node) => node.id)
+    for (let i = 0; i < selectedNodes.length; i++) {
+      for (let j = i + 1; j < selectedNodes.length; j++) {
+        this._addLink(selectedNodes[i], selectedNodes[j])
       }
     }
+    this.rerender();
     console.log('Links added successfully!');
   }
 
   removeLinksBetweenSelectedNodes() {
-    for (let i = 0; i < this.selectedNodes.length; i++) {
-      for (let j = i + 1; j < this.selectedNodes.length; j++) {
-        this._removeLink(this.selectedNodes[i], this.selectedNodes[j]);
+    const selectedNodes = this.nodes.filter((node) => node.isSelected).map((node) => node.id)
+    for (let i = 0; i < selectedNodes.length; i++) {
+      for (let j = i + 1; j < selectedNodes.length; j++) {
+        this._removeLink(selectedNodes[i], selectedNodes[j]);
       }
     }
+    this.rerender();
     console.log('Links removed successfully!');
+  }
+
+  exportData() {
+    let data = {
+      nodes: [],
+      links: []
+    }
+    this.nodes.forEach((node) => data.nodes.push(node.export()));
+    this.links.forEach((link) => data.links.push(link.export()));
+    return data;
   }
 
 }

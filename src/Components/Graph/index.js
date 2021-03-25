@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Graph from 'react-graph-network';
 
 import Link from './Link';
+import { MyGraph } from './model';
+export { MyGraph };
 import Node from './Node';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const initialData = {
   nodes: [
-    { id: '1' },
+    { id: '1', color: '#223232', isSelected: true },
     { id: '2' },
     { id: '3' },
     { id: '4' },
@@ -31,7 +33,7 @@ const initialData = {
   links: [
     { "source": '1', "target": '2', color: 'blue' },
     { "source": '1', "target": '2', color: 'red' },
-
+    { "source": '1', "target": '4', color: 'red' },
     { "source": '3', "target": '4', color: 'orange' },
     { "source": '5', "target": '4', color: 'orange' },
     { "source": '6', "target": '4', color: 'orange' },
@@ -41,18 +43,31 @@ const initialData = {
 };
 
 
-function index() {
+const index = ({ myGraph }) => {
   const classes = useStyles();
-  const [data, setData] = useState(initialData);
+  const [graph, setGraph] = useState(myGraph);
+
+  useEffect(() => {
+    setGraph(myGraph);
+  }, [myGraph])
+
+  setInterval(() => {
+    console.log(myGraph);
+    console.log(myGraph.exportData())
+
+  }, 3000)
+
 
   return (
-    <Graph
-      data={data}
-      NodeComponent={Node}
-      LineComponent={Link}
-      nodeDistance={1000}
-      enableDrag={true}
-    />
+    <div style={{ height: '100vh' }}>
+      <Graph
+        data={myGraph.exportData()}
+        NodeComponent={Node}
+        LineComponent={Link}
+        nodeDistance={1000}
+        enableDrag={true}
+      />
+    </div>
   );
 }
 

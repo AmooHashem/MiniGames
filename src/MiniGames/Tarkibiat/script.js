@@ -1,23 +1,12 @@
-const INITIAL_INFO = {
-  data: {
-    nodes: [
+import { MyGraph } from '../../Components/Graph';
 
-    ],
-    links: [
+const myGraph = new MyGraph();
+myGraph.addNewNode();
+myGraph.addNewNode();
+myGraph.addNewNode();
+myGraph.addNewNode();
+myGraph.addLink(0, 1);
+myGraph.addLink(1, 2);
+myGraph.addLink(2, 3);
 
-    ]
-  }
-}
-
-export class MiniGame {
-  constructor() {
-
-  }
-}
-
-export const convertorData = (nodes, links) => {
-  let result = {
-    nodes: [],
-    links: [],
-  };
-} 
+export { myGraph };

@@ -2,19 +2,16 @@ import {
   Button,
   ButtonGroup,
   Container,
-  FormControl,
   Grid,
-  InputLabel,
   makeStyles,
-  MenuItem,
   Paper,
-  Select,
   Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 
-import { toPersianNumber } from '../../utils/translateNumber'
 import MyGraph from '../../Components/Graph';
+import { toPersianNumber } from '../../utils/translateNumber'
+import { myGraph } from './script';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -71,9 +68,10 @@ function CoronaTest() {
     setMode(0);
   }
 
-
   return (
     <Container className={classes.container}>
+      <MyGraph myGraph={myGraph} />
+
       <div className={classes.budget}>
         <Paper className={classes.paper}>
           <Typography variant='h4'>
@@ -116,7 +114,6 @@ function CoronaTest() {
       </div>
       <Grid container justify='center' spacing={2}>
         <Grid item>
-          <MyGraph />
         </Grid>
         {mode === 0 &&
           <Grid container item spacing={2} justify='center' alignItems='center'>
