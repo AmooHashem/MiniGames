@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import MyGraph from '../../Components/Graph';
 import { toPersianNumber } from '../../utils/translateNumber'
@@ -48,56 +49,26 @@ function CoronaTest() {
   const [mode, setMode] = useState(0);
   const [score, setScore] = useState(0);
 
-  const doTakeTest = () => {
-    setMode(1);
+  const validateMatching = () => {
+    if (myGraph1.getSelectedLinks().length == 0) {
+      toast.info('حداقل یه یال انتخاب کن!');
+    } else {
+      if (myGraph1.isMatchingValid()) {
+        if (myGraph1.findAugmentingPath().length > 0) {
+          toast.error('مسیر افزایشی پیدا کردیم!');
+          myGraph1.colorAugmentingPath();
+        } else {
+          toast.success('ایول! تطابقت بزرگ‌ترین بود!');
+        }
+      } else {
+        toast.error('این یال‌هایی که انتخاب کردی، تشکیل تطابق نمیدن!');
+      }
+    }
   }
-
-  const roadToHospital = () => {
-    setMode(2);
-  }
-
-  const doSendToHospital = () => {
-
-  }
-
-  const getReadyForAnotherTest = () => {
-    setMode(0);
-  }
-
-  const resetGame = () => {
-    setMode(0);
-  }
-
 
   return (
     <Grid className={classes.container}>
       <MyGraph myGraph={myGraph1} />
-
-      {/* <div className={classes.budget}>
-        <Paper className={classes.paper}>
-          <Typography variant='h4'>
-            {`بودجه‌ی باقی‌مانده: ${toPersianNumber(34)}`}
-          </Typography>
-        </Paper>
-      </div> */}
-      <div className={classes.resetGame}>
-        <Grid container direction='column' spacing={1}>
-          <Grid item>
-            <ButtonGroup
-              orientation="vertical"
-              color="secondary"
-              variant='contained'
-              size='small'
-              fullWidth
-            >
-              <Button onClick={resetGame}>شروع دوباره‌ی بازی</Button>
-              <Button onClick={roadToHospital}>به سوی بیمارستان...</Button>
-              <Button >انتخاب همه</Button>
-              <Button >حذف انتخاب همه</Button>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-      </div>
 
       <div className={classes.bottomButtons}>
         <Grid container direction='column' spacing={1}>
@@ -107,50 +78,11 @@ function CoronaTest() {
               variant='contained'
               size='small'
             >
-              <Button onClick={resetGame}>افزودن راس</Button>
-              <Button onClick={roadToHospital}></Button>
+              <Button onClick={validateMatching}>{'بررسی تطابق'}</Button>
             </ButtonGroup>
           </Grid>
         </Grid>
       </div>
-      <Grid container justify='center' spacing={2}>
-        <Grid item>
-        </Grid>
-        {mode === 0 &&
-          <Grid container item spacing={2} justify='center' alignItems='center'>
-
-          </Grid>
-        }
-        {mode === 1 &&
-          <Grid container item spacing={2} justify='center' alignItems='center'>
-            <Grid item xs={12} sm={6} container justify='center' alignItems='center'>
-              <Button variant='contained' color='secondary' fullWidth onClick={getReadyForAnotherTest}>
-                انجام تست مجدد
-							</Button>
-            </Grid>
-          </Grid>
-        }
-        {mode === 2 &&
-          <Grid container item spacing={2} justify='center' alignItems='center'>
-            <Grid item xs={12} container justify='center' alignItems='center'>
-              <Button variant='contained' color='secondary' fullWidth onClick={doSendToHospital}>
-                افرادی رو که فکر می‌کنی بیمار هستند، انتخاب کن و به بیمارستان معرفیشون کن!
-							</Button>
-            </Grid>
-          </Grid>
-        }
-        {mode === 3 &&
-          <Grid container item spacing={2} justify='center' alignItems='center'>
-            <Grid item xs={12} container justify='center' alignItems='center'>
-              <Paper className={classes.paper}>
-                <Typography variant='h4'>
-                  {`امتیاز شما: ${toPersianNumber(score)}`}
-                </Typography>
-              </Paper>
-            </Grid>
-          </Grid>
-        }
-      </Grid>
     </Grid>
   );
 }

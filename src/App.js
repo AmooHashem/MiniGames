@@ -1,3 +1,4 @@
+import 'react-toastify/dist/ReactToastify.css';
 import './Theme/Styles/App.css'
 
 import { CssBaseline } from '@material-ui/core';
@@ -8,8 +9,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-redux-multilingual';
 import { useHistory } from 'react-router-dom';
+import { Slide, ToastContainer } from 'react-toastify';
 
-// import Notifier from './Components/Notifications/Notifications';
 import WorkshopRoot from './Router';
 import MuiTheme from './Theme/MuiThemes/MuiTheme';
 import RTLMuiTheme from './Theme/MuiThemes/RTLMuiTheme';
@@ -17,13 +18,30 @@ import ZeroJourneyerMuiTheme from './Theme/MuiThemes/ZeroJourneyerMuiTheme';
 import translations from './translations';
 import jss from './utils/jssRTL';
 
+const Toast = () => (
+  <ToastContainer
+    rtl
+    position="top-right"
+    autoClose={3000}
+    transition={Slide}
+    newestOnTop
+    hideProgressBar={false}
+    pauseOnHover={false}
+    pauseOnFocusLoss={false}
+    closeOnClick
+    limit={3}
+    draggable={false}
+  />
+);
+
 const Root = () => (
   <SnackbarProvider>
-    {/* <Notifier /> */}
+    <Toast />
     <CssBaseline />
     <WorkshopRoot />
   </SnackbarProvider>
 );
+
 
 const App = ({ dir }) => {
 

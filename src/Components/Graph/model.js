@@ -44,8 +44,17 @@ class Node {
     this.rerender();
   }
 
+  selectNode() {
+    this.isSelected = true;
+    this.rerender();
+  }
+
+  unselectNode() {
+    this.isSelected = false;
+    this.rerender();
+  }
+
   getIsSelected() {
-    console.lo
     return this.isSelected;
   }
 
@@ -81,6 +90,16 @@ class Link {
     this.rerender = rerender;
   }
 
+  selectLink() {
+    this.isSelected = true;
+    this.rerender();
+  }
+
+  unselectLink() {
+    this.isSelected = false;
+    this.rerender();
+  }
+
   changeSelection() {
     this.isSelected = !this.isSelected;
     this.rerender();
@@ -89,7 +108,6 @@ class Link {
   setColor(color) {
     this.color = color;
     this.rerender();
-    console.log("@#@$%$#$%^$#@#$%$#")
   }
 
   getIsSelected() {
@@ -172,21 +190,29 @@ export class MyGraph {
     }
   }
 
+  getSelectedNodes() {
+    return this.nodes.filter((node) => node.isSelected);
+  }
+
+  getSelectedLinks() {
+    return this.links.filter((link) => link.isSelected);
+  }
+
   addLinksBetweenSelectedNodes() {
-    const selectedNodes = this.nodes.filter((node) => node.isSelected).map((node) => node.id)
+    const selectedNodes = this.getSelectedNodesId();
     for (let i = 0; i < selectedNodes.length; i++) {
       for (let j = i + 1; j < selectedNodes.length; j++) {
-        this._addLink(selectedNodes[i], selectedNodes[j])
+        this._addLink(selectedNodes[i].id, selectedNodes[j].id)
       }
     }
     console.log('Links added successfully!');
   }
 
   removeLinksBetweenSelectedNodes() {
-    const selectedNodes = this.nodes.filter((node) => node.isSelected).map((node) => node.id)
+    const selectedNodes = this.getSelectedNodesId();
     for (let i = 0; i < selectedNodes.length; i++) {
       for (let j = i + 1; j < selectedNodes.length; j++) {
-        this._removeLink(selectedNodes[i], selectedNodes[j]);
+        this._removeLink(selectedNodes[i].id, selectedNodes[j].id);
       }
     }
     console.log('Links removed successfully!');
@@ -211,44 +237,88 @@ export class MyGraph {
       })
   }
 
+  doesNodeConnectAnySelectedEdge(nodeId) {
+    let result = false;
+    this.getSelectedLinks().forEach((link) => {
+      if (link.source == nodeId || link.target == nodeId) {
+        result = [link.source, link.target];
+      }
+    })
+    return result;
+  }
 
-  maximumMatchingAnswer = [];
-
+  augmentingPath = [];
 
   dfs(nodeId, mark, parent, length) {
     if (mark[nodeId] === true) return;
     mark[nodeId] = true;
 
-    if (length > this.maximumMatchingAnswer.length) {
-      this.maximumMatchingAnswer = [];
-      let tmpId = nodeId;
-      while (tmpId != -1) {
-        this.maximumMatchingAnswer.push(tmpId);
-        tmpId = parent[tmpId];
-      }
-    }
-
-
     for (let i of this.getNeighborsId(nodeId)) {
-      if (!mark[i]) {
+      const link = this.doesNodeConnectAnySelectedEdge(i);
+      if (mark[i])
+        continue;
+
+      if (link != false) {
+        const otherNode = link[0] == i ? link[1] : link[0];
         parent[i] = nodeId;
-        this.dfs(i, mark, parent, length + 1);
+        mark[i] = true;
+        parent[otherNode] = i;
+        this.dfs(otherNode, mark, parent, length + 2);
+      } else {
+        this.augmentingPath = [i];
+        let tmpId = nodeId;
+        while (tmpId != -1) {
+          this.augmentingPath.push(tmpId);
+          tmpId = parent[tmpId];
+        }
+        return;
       }
     }
-
     mark[nodeId] = false;
+    if (parent[nodeId] != -1) mark[parent[nodeId]] = false;
   }
 
-  findMaximumMatching() {
+  findAugmentingPath() {
+    this.augmentingPath = []
     for (let i = 0; i < this.nodes.length; i++) {
       let mark = new Array(MAXIMUM_NUMBER_OF_NODES);
       let parent = new Array(MAXIMUM_NUMBER_OF_NODES);
-      let id = this.nodes[i].id;
-      parent[id] = -1;
-      this.dfs(id, mark, parent, 1);
+      if (!this.doesNodeConnectAnySelectedEdge(i)) {
+        let id = this.nodes[i].id;
+        parent[id] = -1;
+        this.dfs(id, mark, parent, 0, -1);
+      }
     }
+    return this.augmentingPath;
+  }
 
-    console.log(this.maximumMatchingAnswer)
+  isMatchingValid() {
+    let mark = new Array(MAXIMUM_NUMBER_OF_NODES);
+    let result = true;
+    this.getSelectedLinks().forEach((link) => {
+      if (mark[link.source]) {
+        result = false;
+      }
+      mark[link.source] = true;
+      if (mark[link.target]) {
+        result = false;
+      }
+      mark[link.target] = true;
+    });
+    return result;
+  }
+
+  colorAugmentingPath() {
+    this.findAugmentingPath();
+    for (let i = 0; i < this.augmentingPath.length - 1; i += 2) {
+      const link = this.getLink(this.augmentingPath[i], this.augmentingPath[i + 1]);
+      link.setColor('red');
+      link.selectLink();
+      setTimeout(() => {
+        link.setColor('');
+        link.unselectLink();
+      }, 3000)
+    }
   }
 
 }
