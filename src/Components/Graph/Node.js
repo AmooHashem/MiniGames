@@ -20,7 +20,7 @@ const Node = ({ node }) => {
     <g style={{ opacity: '1' }}>
       <circle
         id={id}
-        onClick={() => { node.changeSelection(); console.log("@@@@@@@@@@") }}
+        onClick={node.changeSelection}
         fill={node.getColor() ? node.getColor() : 'white'}
         strokeWidth={2}
         stroke={'black'}
