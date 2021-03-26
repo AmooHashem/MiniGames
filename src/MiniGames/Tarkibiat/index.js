@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 
 import MyGraph from '../../Components/Graph';
 import { toPersianNumber } from '../../utils/translateNumber'
-import { myGraph } from './script';
+import { myGraph1 } from './script';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -70,16 +70,16 @@ function CoronaTest() {
 
 
   return (
-    <Container className={classes.container}>
-      <MyGraph myGraph={myGraph} />
+    <Grid className={classes.container}>
+      <MyGraph myGraph={myGraph1} />
 
-      <div className={classes.budget}>
+      {/* <div className={classes.budget}>
         <Paper className={classes.paper}>
           <Typography variant='h4'>
             {`بودجه‌ی باقی‌مانده: ${toPersianNumber(34)}`}
           </Typography>
         </Paper>
-      </div>
+      </div> */}
       <div className={classes.resetGame}>
         <Grid container direction='column' spacing={1}>
           <Grid item>
@@ -151,7 +151,7 @@ function CoronaTest() {
           </Grid>
         }
       </Grid>
-    </Container>
+    </Grid>
   );
 }
 

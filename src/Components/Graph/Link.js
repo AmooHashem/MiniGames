@@ -14,7 +14,8 @@ const Line = ({ link, ...restProps }) => {
         onClick={link.changeSelection}
         {...restProps}
         stroke={link.getColor() ? link.getColor() : 'black'}
-        strokeWidth={link.getIsSelected() ? 4 : 2}
+        strokeWidth={link.getIsSelected() ? 5 : 2}
+        style={{ opacity: '0.8' }}
       />
     </>
   )

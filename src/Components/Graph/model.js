@@ -1,3 +1,5 @@
+const MAXIMUM_NUMBER_OF_NODES = 20;
+
 class Node {
   neighborsId = [];
   isSelected = false;
@@ -43,6 +45,7 @@ class Node {
   }
 
   getIsSelected() {
+    console.lo
     return this.isSelected;
   }
 
@@ -197,6 +200,55 @@ export class MyGraph {
     this.nodes.forEach((node) => data.nodes.push(node.export()));
     this.links.forEach((link) => data.links.push(link.export()));
     return data;
+  }
+
+  getNeighborsId(nodeId) {
+    return this.links
+      .filter((link) => link.source == nodeId || link.target == nodeId)
+      .map((link) => {
+        if (link.source == nodeId) return link.target;
+        return link.source;
+      })
+  }
+
+
+  maximumMatchingAnswer = [];
+
+
+  dfs(nodeId, mark, parent, length) {
+    if (mark[nodeId] === true) return;
+    mark[nodeId] = true;
+
+    if (length > this.maximumMatchingAnswer.length) {
+      this.maximumMatchingAnswer = [];
+      let tmpId = nodeId;
+      while (tmpId != -1) {
+        this.maximumMatchingAnswer.push(tmpId);
+        tmpId = parent[tmpId];
+      }
+    }
+
+
+    for (let i of this.getNeighborsId(nodeId)) {
+      if (!mark[i]) {
+        parent[i] = nodeId;
+        this.dfs(i, mark, parent, length + 1);
+      }
+    }
+
+    mark[nodeId] = false;
+  }
+
+  findMaximumMatching() {
+    for (let i = 0; i < this.nodes.length; i++) {
+      let mark = new Array(MAXIMUM_NUMBER_OF_NODES);
+      let parent = new Array(MAXIMUM_NUMBER_OF_NODES);
+      let id = this.nodes[i].id;
+      parent[id] = -1;
+      this.dfs(id, mark, parent, 1);
+    }
+
+    console.log(this.maximumMatchingAnswer)
   }
 
 }

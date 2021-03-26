@@ -13,16 +13,16 @@ const Node = ({ node }) => {
 
   let size = 12;
   if (node.getIsSelected()) {
-    size = 18;
+    size = 15;
   }
 
   return (
-    <>
+    <g style={{ opacity: '1' }}>
       <circle
         id={id}
         onClick={() => { node.changeSelection(); console.log("@@@@@@@@@@") }}
         fill={node.getColor() ? node.getColor() : 'white'}
-        strokeWidth={node.getIsSelected() ? 4 : 2}
+        strokeWidth={2}
         stroke={'black'}
         r={size}
       />
@@ -37,7 +37,7 @@ const Node = ({ node }) => {
           {node.id}
         </text>
       </g>
-    </>
+    </g>
   );
 };
 
