@@ -3,10 +3,9 @@ class Node {
   isSelected = false;
   rerender = () => { }
 
-  constructor(id, component, rerender) {
-    this.component = component;
+  constructor(id, color) {
+    this.color = color;
     this.id = id;
-    this.rerender = rerender;
   }
 
   addNeighbor(nodeId) {
@@ -38,8 +37,17 @@ class Node {
     this.rerender();
   }
 
+  setColor(color) {
+    this.color = color;
+    this.rerender();
+  }
+
   getIsSelected() {
     return this.isSelected;
+  }
+
+  getColor() {
+    return this.color;
   }
 
   export() {
@@ -48,6 +56,7 @@ class Node {
       isSelected: this.isSelected,
       changeSelection: this.changeSelection.bind(this),
       getIsSelected: this.getIsSelected.bind(this),
+      getColor: this.getColor.bind(this),
       setRerender: this.setRerender.bind(this),
     })
   }
@@ -59,9 +68,10 @@ class Link {
   isSelected = false;
   rerender = () => { }
 
-  constructor(node1Id, node2Id) {
+  constructor(node1Id, node2Id, color) {
     this.source = Math.min(node1Id, node2Id);
     this.target = Math.max(node1Id, node2Id);
+    this.color = color;
   }
 
   setRerender(rerender) {
@@ -73,8 +83,18 @@ class Link {
     this.rerender();
   }
 
+  setColor(color) {
+    this.color = color;
+    this.rerender();
+    console.log("@#@$%$#$%^$#@#$%$#")
+  }
+
   getIsSelected() {
     return this.isSelected;
+  }
+
+  getColor() {
+    return this.color;
   }
 
   export() {
@@ -83,6 +103,7 @@ class Link {
       target: this.target,
       changeSelection: this.changeSelection.bind(this),
       getIsSelected: this.getIsSelected.bind(this),
+      getColor: this.getColor.bind(this),
       setRerender: this.setRerender.bind(this),
     })
   }
@@ -92,42 +113,39 @@ export class MyGraph {
   initialNodeId = 0;
   nodes = [];
   links = [];
-  rerender = () => { }
 
-  setRerender(rerender) {
-    this.rerender = rerender;
-    this.nodes.forEach((node) => {
-      node.rerender = rerender;
-    })
-    this.links.forEach((link) => {
-      link.rerender = rerender;
-    })
-  }
-
-  addNewNode() {
-    const node = new Node(this.initialNodeId, this.rerender);
+  addNewNode(color) {
+    const node = new Node(this.initialNodeId, color);
     this.initialNodeId++;
     this.nodes.push(node);
     console.log('New node added!');
-    this.rerender();
     return true;
   }
 
   removeNode(nodeId) {
     this.nodes = this.nodes.filter((node) => node.id != nodeId);
     console.log('Node removed successfully.');
-    this.rerender();
     return true;
   }
 
-  addLink(node1Id, node2Id) {
+  getNode(nodeId) {
+    const tmp = this.nodes.filter((node) => node.id == nodeId);
+    return tmp ? tmp[0] : {};
+  }
+
+  getLink(node1Id, node2Id) {
+    const tmp = this.links.filter((link) => link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id));
+    return tmp ? tmp[0] : {};
+  }
+
+
+  addLink(node1Id, node2Id, color) {
     const tmp = this.links.forEach((link) =>
       (link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id))
     ) || []
     if (tmp.length == 0) {
-      this.links.push(new Link(node1Id, node2Id, this.rerender));
+      this.links.push(new Link(node1Id, node2Id, color));
       console.log("Link added successfully!");
-      this.rerender();
       return true;
     } else {
       console.log("Link already exists.");
@@ -144,7 +162,6 @@ export class MyGraph {
         (link.source != Math.min(node1Id, node2Id) || link.target != Math.max(node1Id, node2Id))
       )
       console.log("Link removed successfully!");
-      this.rerender();
       return true;
     } else {
       console.log('Link doesn\'t exist.');
@@ -160,7 +177,6 @@ export class MyGraph {
       }
     }
     console.log('Links added successfully!');
-    this.rerender();
   }
 
   removeLinksBetweenSelectedNodes() {
@@ -171,7 +187,6 @@ export class MyGraph {
       }
     }
     console.log('Links removed successfully!');
-    this.rerender();
   }
 
   exportData() {

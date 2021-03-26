@@ -13,8 +13,8 @@ const Line = ({ link, ...restProps }) => {
       <line
         onClick={link.changeSelection}
         {...restProps}
-        stroke={link.color ? link.color : 'black'}
-        strokeWidth={link.getIsSelected() ? 10 : 4}
+        stroke={link.getColor() ? link.getColor() : 'black'}
+        strokeWidth={link.getIsSelected() ? 4 : 2}
       />
     </>
   )

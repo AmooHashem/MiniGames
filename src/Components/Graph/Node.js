@@ -2,22 +2,27 @@ import React, { useEffect, useState } from 'react';
 
 const Node = ({ node }) => {
   const [_, rerender] = useState();
+  const [id, __] = useState(Math.random());
 
   useEffect(() => {
     node.setRerender(() => rerender(Math.random()));
+    var elem = document.getElementById(id);
+    elem.onclick();
+    console.log(elem)
   }, [])
 
-  let size = 20;
+  let size = 12;
   if (node.getIsSelected()) {
-    size = 25;
+    size = 18;
   }
 
   return (
     <>
       <circle
-        onClick={node.changeSelection}
-        fill={node.color ? node.color : 'white'}
-        strokeWidth={node.getIsSelected() ? size / 10 + 2 : size / 10}
+        id={id}
+        onClick={() => { node.changeSelection(); console.log("@@@@@@@@@@") }}
+        fill={node.getColor() ? node.getColor() : 'white'}
+        strokeWidth={node.getIsSelected() ? 4 : 2}
         stroke={'black'}
         r={size}
       />

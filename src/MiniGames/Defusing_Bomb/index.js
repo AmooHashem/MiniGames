@@ -2,24 +2,21 @@ import {
   Button,
   ButtonGroup,
   Container,
-  FormControl,
   Grid,
-  InputLabel,
   makeStyles,
-  MenuItem,
   Paper,
-  Select,
   Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 
-import { toPersianNumber } from '../../utils/translateNumber'
 import MyGraph from '../../Components/Graph';
+import { toPersianNumber } from '../../utils/translateNumber'
+import { myGraph } from './script';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     overflow: 'hidden',
-    height: '100vh',
+    minHeight: '100vh',
     paddingBottom: theme.spacing(2),
   },
   budget: {
@@ -47,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CoronaTest() {
   const classes = useStyles();
-  const [_, updateComponent] = useState();
+  const [_, rerender] = useState();
   const [mode, setMode] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -74,7 +71,7 @@ function CoronaTest() {
 
   return (
     <Container className={classes.container}>
-      <MyGraph />
+      <MyGraph myGraph={myGraph} />
 
       <div className={classes.budget}>
         <Paper className={classes.paper}>
@@ -101,6 +98,7 @@ function CoronaTest() {
           </Grid>
         </Grid>
       </div>
+
       <div className={classes.bottomButtons}>
         <Grid container direction='column' spacing={1}>
           <Grid item>
@@ -109,13 +107,12 @@ function CoronaTest() {
               variant='contained'
               size='small'
             >
-              <Button onClick={resetGame}>افزودن راس</Button>
+              <Button onClick={() => { myGraph.getNode(1).setColor('red') }}>افزودن راس</Button>
               <Button onClick={roadToHospital}></Button>
             </ButtonGroup>
           </Grid>
         </Grid>
       </div>
-
       <Grid container justify='center' spacing={2}>
         <Grid item>
         </Grid>

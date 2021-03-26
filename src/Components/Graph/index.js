@@ -52,8 +52,10 @@ const index = ({ myGraph }) => {
         data={myGraph.exportData()}
         NodeComponent={Node}
         LineComponent={Link}
-        nodeDistance={1000}
+        nodeDistance={100}
         enableDrag={true}
+        pullIn={false}
+        zoomDepth={3}
       />
     </div>
   );
