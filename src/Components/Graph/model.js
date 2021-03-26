@@ -1,10 +1,12 @@
 class Node {
   neighborsId = [];
   isSelected = false;
+  rerender = () => { }
 
-  constructor(id, rerender) {
-    this.rerender = rerender;
+  constructor(id, component, rerender) {
+    this.component = component;
     this.id = id;
+    this.rerender = rerender;
   }
 
   addNeighbor(nodeId) {
@@ -13,6 +15,7 @@ class Node {
       return;
     }
     this.neighborsId.push(nodeId);
+    this.rerender();
   }
 
   removerNeighbor(nodeId) {
@@ -23,6 +26,11 @@ class Node {
     this.neighbors = this.neighborsId.filter((neighbor) => {
       neighbor != nodeId
     });
+    this.rerender();
+  }
+
+  setRerender(rerender) {
+    this.rerender = rerender;
   }
 
   changeSelection() {
@@ -30,11 +38,17 @@ class Node {
     this.rerender();
   }
 
+  getIsSelected() {
+    return this.isSelected;
+  }
+
   export() {
     return ({
       id: this.id,
       isSelected: this.isSelected,
-      changeSelection: this.changeSelection,
+      changeSelection: this.changeSelection.bind(this),
+      getIsSelected: this.getIsSelected.bind(this),
+      setRerender: this.setRerender.bind(this),
     })
   }
 }
@@ -43,11 +57,15 @@ class Node {
 
 class Link {
   isSelected = false;
+  rerender = () => { }
 
-  constructor(node1Id, node2Id, rerender) {
-    this.rerender = rerender;
+  constructor(node1Id, node2Id) {
     this.source = Math.min(node1Id, node2Id);
     this.target = Math.max(node1Id, node2Id);
+  }
+
+  setRerender(rerender) {
+    this.rerender = rerender;
   }
 
   changeSelection() {
@@ -55,12 +73,17 @@ class Link {
     this.rerender();
   }
 
+  getIsSelected() {
+    return this.isSelected;
+  }
+
   export() {
     return ({
       source: this.source,
       target: this.target,
-      isSelected: this.isSelected,
       changeSelection: this.changeSelection.bind(this),
+      getIsSelected: this.getIsSelected.bind(this),
+      setRerender: this.setRerender.bind(this),
     })
   }
 }
@@ -69,9 +92,16 @@ export class MyGraph {
   initialNodeId = 0;
   nodes = [];
   links = [];
+  rerender = () => { }
 
-  constructor(rerender) {
+  setRerender(rerender) {
     this.rerender = rerender;
+    this.nodes.forEach((node) => {
+      node.rerender = rerender;
+    })
+    this.links.forEach((link) => {
+      link.rerender = rerender;
+    })
   }
 
   addNewNode() {
@@ -129,8 +159,8 @@ export class MyGraph {
         this._addLink(selectedNodes[i], selectedNodes[j])
       }
     }
-    this.rerender();
     console.log('Links added successfully!');
+    this.rerender();
   }
 
   removeLinksBetweenSelectedNodes() {
@@ -140,8 +170,8 @@ export class MyGraph {
         this._removeLink(selectedNodes[i], selectedNodes[j]);
       }
     }
-    this.rerender();
     console.log('Links removed successfully!');
+    this.rerender();
   }
 
   exportData() {

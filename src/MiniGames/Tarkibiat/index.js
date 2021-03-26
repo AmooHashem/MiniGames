@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CoronaTest() {
   const classes = useStyles();
-  const [_, updateComponent] = useState();
+  const [_, rerender] = useState();
   const [mode, setMode] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -67,6 +67,7 @@ function CoronaTest() {
   const resetGame = () => {
     setMode(0);
   }
+
 
   return (
     <Container className={classes.container}>

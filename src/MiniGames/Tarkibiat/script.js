@@ -1,4 +1,4 @@
-import { MyGraph } from '../../Components/Graph';
+import React, { MyGraph } from '../../Components/Graph';
 
 const myGraph = new MyGraph();
 myGraph.addNewNode();

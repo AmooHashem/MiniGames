@@ -45,18 +45,6 @@ const initialData = {
 
 const index = ({ myGraph }) => {
   const classes = useStyles();
-  const [graph, setGraph] = useState(myGraph);
-
-  useEffect(() => {
-    setGraph(myGraph);
-  }, [myGraph])
-
-  setInterval(() => {
-    console.log(myGraph);
-    console.log(myGraph.exportData())
-
-  }, 3000)
-
 
   return (
     <div style={{ height: '100vh' }}>
