@@ -204,7 +204,7 @@ function index() {
                   <th><Typography align='center' size='small'>{account}</Typography></th>
                   {accounts.map((num, j) => (
                     <th key={num}>
-                      <TextField size='small' disabled={i == j} defaultValue={i == j ? 'X' : data[i][j]} name={[i, j]} variant='outlined' onBlur={setValue} />
+                      <TextField size='small' style={{ minWidth: '60px' }} disabled={i == j} defaultValue={i == j ? 'X' : data[i][j]} name={[i, j]} variant='outlined' onBlur={setValue} />
                     </th>
                   ))}
                 </tr>
