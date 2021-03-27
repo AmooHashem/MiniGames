@@ -7,6 +7,7 @@ import Collective_Behavior_Of_Fish from '../MiniGames/Collective_Behavior_Of_Fis
 import Conways_Game_Of_Life from '../MiniGames/Conways_Game_Of_Life';
 import Defusing_Bomb from '../MiniGames/Defusing_Bomb';
 import Tarkibiat from '../MiniGames/Tarkibiat';
+import Account2Points from '../MiniGames/Account2Points';
 import DevTools from './DevTools';
 
 const MyRoute = () => {
@@ -18,6 +19,7 @@ const MyRoute = () => {
         <Route exact path="/Ant_Colony_Optimization" component={Ant_Colony_Optimization} />
         <Route exact path="/Tarkibiat" component={Tarkibiat} />
         <Route exact path="/Defusing_Bomb" component={Defusing_Bomb} />
+        <Route exact path="/Account2Points" component={Account2Points} />
         <Route exact path="/" component={Landing} />
         <Route
           path="*"

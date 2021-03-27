@@ -58,7 +58,7 @@ function CoronaTest() {
           toast.error('مسیر افزایشی پیدا کردیم!');
           myGraph1.colorAugmentingPath();
         } else {
-          toast.success('ایول! تطابقت بزرگ‌ترین بود!');
+          toast.success('ایول! تطابقت بزرگ‌ترینه!');
         }
       } else {
         toast.error('این یال‌هایی که انتخاب کردی، تشکیل تطابق نمیدن!');
@@ -69,6 +69,25 @@ function CoronaTest() {
   return (
     <Grid className={classes.container}>
       <MyGraph myGraph={myGraph1} />
+
+      {/* <div className={classes.resetGame}>
+        <Grid container direction='column' spacing={1}>
+          <Grid item>
+            <ButtonGroup
+              orientation="vertical"
+              color="secondary"
+              variant='contained'
+              size='small'
+              fullWidth
+            >
+              <Button onClick={resetGame}>شروع دوباره‌ی بازی</Button>
+              <Button onClick={roadToHospital}>به سوی بیمارستان...</Button>
+              <Button >انتخاب همه</Button>
+              <Button >حذف انتخاب همه</Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+      </div> */}
 
       <div className={classes.bottomButtons}>
         <Grid container direction='column' spacing={1}>
