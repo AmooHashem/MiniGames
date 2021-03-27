@@ -12,8 +12,8 @@ import React, { useEffect, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import { toast } from 'react-toastify';
 
+import { stringToColor } from '../../utils/stringToColor';
 import { toPersianNumber } from '../../utils/translateNumber';
-
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -84,9 +84,9 @@ for (let i = 0; i < DIMENSION; i++) {
 let chartData = {
   datasets: [
     {
-      label: 'حساب‌های کاربری',
+      label: '',
       data: [],
-      backgroundColor: '#10528B',
+      backgroundColor: '',
     },
   ],
 }
@@ -139,9 +139,13 @@ function index() {
   const calculateAnswer = () => {
     druid.MDS.transform_async(druid.Matrix.from(data)).then(
       (result) => {
-        chartData.datasets[0].data = [];
+        chartData.datasets = [];
         for (let i = 0; i < result._data.length; i += 2) {
-          chartData.datasets[0].data.push({ x: Math.floor(result._data[i] * 10000) / 10000, y: Math.floor(result._data[i + 1] * 10000) / 10000, name: 'salam' });
+          chartData.datasets.push({
+            label: accounts[i / 2],
+            data: [{ x: Math.floor(result._data[i] * 10000) / 10000, y: Math.floor(result._data[i + 1] * 10000) / 10000 }],
+            backgroundColor: stringToColor(accounts[i / 2].slice(0, 5)),
+          })
         }
         rerender(Math.random());
       }
