@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
+
 const Node = ({ node }) => {
   const [_, rerender] = useState();
-  const [id, __] = useState(Math.random());
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
-    node.setRerender(() => rerender(Math.random()));
-    var elem = document.getElementById(id);
-    elem.onclick();
-    console.log(elem)
+    node.setRerender(forceUpdate);
   }, [])
 
   let size = 12;
@@ -17,10 +16,9 @@ const Node = ({ node }) => {
   }
 
   return (
-    <g style={{ opacity: '1' }}>
+    <>
       <circle
-        id={id}
-        onClick={node.changeSelection}
+        onClick={() => { node.changeSelection(); rerender(Math.random()); }}
         fill={node.getColor() ? node.getColor() : 'white'}
         strokeWidth={2}
         stroke={'black'}
@@ -28,16 +26,16 @@ const Node = ({ node }) => {
       />
       <g>
         <text
-          onClick={node.changeSelection}
+          onClick={() => { node.changeSelection; rerender(Math.random()); }}
           fontSize={size}
           fontWeight={node.getIsSelected() ? 'bold' : ''}
-          x={size / 4}
+          x={size / 3}
           y={size / 3}
         >
           {node.id}
         </text>
       </g>
-    </g>
+    </>
   );
 };
 

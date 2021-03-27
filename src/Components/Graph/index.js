@@ -49,6 +49,7 @@ const index = ({ myGraph }) => {
   return (
     <div style={{ height: '100vh' }}>
       <Graph
+        id={myGraph.name}
         data={myGraph.exportData()}
         NodeComponent={Node}
         LineComponent={Link}

@@ -10,11 +10,12 @@ import {
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import MyGraph from '../../Components/Graph';
+import GraphComponent from '../../Components/Graph';
 import { toPersianNumber } from '../../utils/translateNumber'
-import { myGraph1 } from './script';
+import { graphs } from './script';
 
 const useStyles = makeStyles((theme) => ({
+
   container: {
     overflow: 'hidden',
     minHeight: '100vh',
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     left: theme.spacing(2),
     zIndex: 10,
   },
-  resetGame: {
+  top_left: {
     position: 'fixed',
     top: theme.spacing(2),
     right: theme.spacing(2),
@@ -43,20 +44,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function CoronaTest() {
+function index() {
   const classes = useStyles();
-  const [_, rerender] = useState();
-  const [mode, setMode] = useState(0);
-  const [score, setScore] = useState(0);
+  const [Graph, setGraph] = useState(<GraphComponent myGraph={graphs[0]} />);
+  const [tab, setTab] = useState(0);
+  const [isDisabled, setDisableStatus] = useState(false);
 
   const validateMatching = () => {
-    if (myGraph1.getSelectedLinks().length == 0) {
+    setDisableStatus(true);
+    if (graphs[tab].getSelectedLinks().length == 0) {
       toast.info('حداقل یه یال انتخاب کن!');
     } else {
-      if (myGraph1.isMatchingValid()) {
-        if (myGraph1.findAugmentingPath().length > 0) {
+      if (graphs[tab].isMatchingValid()) {
+        if (graphs[tab].findAugmentingPath().length > 0) {
           toast.error('مسیر افزایشی پیدا کردیم!');
-          myGraph1.colorAugmentingPath();
+          graphs[tab].colorAugmentingPath();
         } else {
           toast.success('ایول! تطابقت بزرگ‌ترینه!');
         }
@@ -64,13 +66,20 @@ function CoronaTest() {
         toast.error('این یال‌هایی که انتخاب کردی، تشکیل تطابق نمیدن!');
       }
     }
+    setTimeout(() => {
+      setDisableStatus(false);
+    }, 3000)
+  }
+
+  const doSetTab = (tabNo) => {
+    setGraph(<GraphComponent myGraph={graphs[tabNo]} />);
+    setTab(tabNo);
   }
 
   return (
     <Grid className={classes.container}>
-      <MyGraph myGraph={myGraph1} />
-
-      {/* <div className={classes.resetGame}>
+      {Graph}
+      {/* <div className={classes.top_left}>
         <Grid container direction='column' spacing={1}>
           <Grid item>
             <ButtonGroup
@@ -80,10 +89,9 @@ function CoronaTest() {
               size='small'
               fullWidth
             >
-              <Button onClick={resetGame}>شروع دوباره‌ی بازی</Button>
-              <Button onClick={roadToHospital}>به سوی بیمارستان...</Button>
-              <Button >انتخاب همه</Button>
-              <Button >حذف انتخاب همه</Button>
+              <Button onClick={() => doSetTab(0)}> {'گراف اول'}</Button>
+              <Button onClick={() => doSetTab(1)}> {'گراف اول'}</Button>
+              <Button onClick={() => doSetTab(2)}> {'گراف اول'}</Button>
             </ButtonGroup>
           </Grid>
         </Grid>
@@ -97,7 +105,7 @@ function CoronaTest() {
               variant='contained'
               size='small'
             >
-              <Button onClick={validateMatching}>{'بررسی تطابق'}</Button>
+              <Button disabled={isDisabled} onClick={validateMatching}>{'بررسی تطابق'}</Button>
             </ButtonGroup>
           </Grid>
         </Grid>
@@ -107,4 +115,4 @@ function CoronaTest() {
 }
 
 
-export default CoronaTest;
+export default index;

@@ -39,8 +39,28 @@ function Homepage() {
           </a>
         </li>
         <li>
-          <a href='/Tarkibiat'>
-            {'گراف ترکیبیات'}
+          <a href='/Tarkibiat/1'>
+            {'گراف ترکیبیات ۱'}
+          </a>
+        </li>
+        <li>
+          <a href='/Tarkibiat/2'>
+            {'گراف ترکیبیات ۲'}
+          </a>
+        </li>
+        <li>
+          <a href='/Tarkibiat/3'>
+            {'گراف ترکیبیات ۳'}
+          </a>
+        </li>
+        <li>
+          <a href='/Account2Points'>
+            {'حساب به نقطه‌ها (سیستم‌های پیشنهاد‌دهنده)'}
+          </a>
+        </li>
+        <li>
+          <a href='/Donor_Patient'>
+            {'اهداکنندگان و بیماران'}
           </a>
         </li>
       </ol>

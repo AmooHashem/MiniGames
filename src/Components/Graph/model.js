@@ -135,11 +135,15 @@ export class MyGraph {
   nodes = [];
   links = [];
 
-  addNewNode(color) {
-    const node = new Node(this.initialNodeId, color);
-    this.initialNodeId++;
+  constructor(name) {
+    this.name = name;
+  }
+
+  addNewNode(color, id) {
+    const node = new Node(id ? id : this.initialNodeId, color);
     this.nodes.push(node);
-    console.log('New node added!');
+    console.log(`New node ${this.initialNodeId} added!`);
+    id ? '' : this.initialNodeId++;
     return true;
   }
 
