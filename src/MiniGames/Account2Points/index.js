@@ -4,16 +4,9 @@ import {
   Container,
   Grid,
   makeStyles,
-  Paper,
   TextField,
   Typography,
 } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import * as druid from "@saehrimnir/druidjs";
 import React, { useEffect, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
@@ -33,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     top: theme.spacing(2),
     right: theme.spacing(2),
-    zIndex: 10,
+    zIndex: 100,
   },
   resetGame: {
     position: 'fixed',
@@ -55,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     width: '650px'
   },
   tableContainer: {
+    marginTop: theme.spacing(4),
     overflowX: 'auto',
   }
 
@@ -62,6 +56,18 @@ const useStyles = makeStyles((theme) => ({
 
 const DIMENSION = 10;
 const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const accounts = [
+  'آشپزی سالم',
+  'پرسپولیس',
+  'فوتبال برتر',
+  'نود',
+  'هاشم بیک‌زاده',
+  'حامد احمدزاده',
+  'نی‌نوازان',
+  'همایون شجریان',
+  'موسیقی شب',
+  'مهسا میرزایی',
+]
 
 const tmp = new Array(DIMENSION);
 for (let i = 0; i < DIMENSION; i++) {
@@ -78,7 +84,7 @@ for (let i = 0; i < DIMENSION; i++) {
 let chartData = {
   datasets: [
     {
-      label: 'نمودار نقاط کاهش‌بعد‌یافته',
+      label: 'حساب‌های کاربری',
       data: [],
       backgroundColor: '#10528B',
     },
@@ -135,7 +141,7 @@ function index() {
       (result) => {
         chartData.datasets[0].data = [];
         for (let i = 0; i < result._data.length; i += 2) {
-          chartData.datasets[0].data.push({ x: result._data[i], y: result._data[i + 1] });
+          chartData.datasets[0].data.push({ x: Math.floor(result._data[i] * 10000) / 10000, y: Math.floor(result._data[i + 1] * 10000) / 10000, name: 'salam' });
         }
         rerender(Math.random());
       }
@@ -178,23 +184,23 @@ function index() {
       } */}
 
       {tab == 0 &&
-        <Grid direction='column' container justify='center' alignItems='center'>
-          <div className={classes.tableContainer}>
+        <Grid container justify='center' alignItems='center'>
+          <div className={classes.tableContainer} >
             <table className={classes.table}>
               <tr>
                 <th></th>
-                {number.map((num, i) => (
-                  < th key={num} >
-                    <th><Typography align='center' size='small'>{`ستون ${toPersianNumber(i)}`}</Typography></th>
+                {accounts.map((account) => (
+                  <th key={account}>
+                    <th><Typography align='center' size='small'>{account}</Typography></th>
                   </th>
                 ))}
               </tr>
-              {number.map((num, i) => (
-                <tr key={num}>
-                  <th><Typography align='center' size='small'>{`ردیف ${toPersianNumber(i)}`}</Typography></th>
-                  {number.map((num, j) => (
+              {accounts.map((account, i) => (
+                <tr key={account}>
+                  <th><Typography align='center' size='small'>{account}</Typography></th>
+                  {accounts.map((num, j) => (
                     <th key={num}>
-                      <TextField size='small' disabled={i == j} defaultValue={data[i][j]} name={[i, j]} variant='outlined' onBlur={setValue} />
+                      <TextField size='small' disabled={i == j} defaultValue={i == j ? 'X' : data[i][j]} name={[i, j]} variant='outlined' onBlur={setValue} />
                     </th>
                   ))}
                 </tr>
@@ -206,7 +212,7 @@ function index() {
       }
 
       {tab == 1 &&
-        <Grid direction='column' container justify='center' alignItems='center'>
+        <Grid container justify='center' alignItems='center' xs={12} md={10} >
           <Scatter data={chartData} options={options} />
         </Grid>
       }

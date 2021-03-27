@@ -2,12 +2,12 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Landing from '../Landing';
+import Account2Points from '../MiniGames/Account2Points';
 import Ant_Colony_Optimization from '../MiniGames/Ant_Colony_Optimization';
 import Collective_Behavior_Of_Fish from '../MiniGames/Collective_Behavior_Of_Fish';
 import Conways_Game_Of_Life from '../MiniGames/Conways_Game_Of_Life';
 import Defusing_Bomb from '../MiniGames/Defusing_Bomb';
 import Tarkibiat from '../MiniGames/Tarkibiat';
-import Account2Points from '../MiniGames/Account2Points';
 import DevTools from './DevTools';
 
 const MyRoute = () => {
