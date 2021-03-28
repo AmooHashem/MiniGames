@@ -7,7 +7,10 @@ import Ant_Colony_Optimization from '../MiniGames/Ant_Colony_Optimization';
 import Collective_Behavior_Of_Fish from '../MiniGames/Collective_Behavior_Of_Fish';
 import Conways_Game_Of_Life from '../MiniGames/Conways_Game_Of_Life';
 import Defusing_Bomb from '../MiniGames/Defusing_Bomb';
-import Donor_Patient from '../MiniGames/Donor_Patient';
+import Donor_Patient1 from '../MiniGames/Donor_Patient1';
+import Donor_Patient2 from '../MiniGames/Donor_Patient2';
+import Donor_Patient3 from '../MiniGames/Donor_Patient3';
+import Donor_Patient4 from '../MiniGames/Donor_Patient4';
 import Tarkibiat1 from '../MiniGames/Tarkibiat1';
 import Tarkibiat2 from '../MiniGames/Tarkibiat2';
 import Tarkibiat3 from '../MiniGames/Tarkibiat3';
@@ -25,8 +28,10 @@ const MyRoute = () => {
         <Route exact path="/Tarkibiat/3" component={Tarkibiat3} />
         <Route exact path="/Defusing_Bomb" component={Defusing_Bomb} />
         <Route exact path="/Account2Points" component={Account2Points} />
-        <Route exact path="/Donor_Patient" component={Donor_Patient} />
-
+        <Route exact path="/Donor_Patient/1" component={Donor_Patient1} />
+        <Route exact path="/Donor_Patient/2" component={Donor_Patient2} />
+        <Route exact path="/Donor_Patient/3" component={Donor_Patient3} />
+        <Route exact path="/Donor_Patient/4" component={Donor_Patient4} />
         <Route exact path="/" component={Landing} />
         <Route
           path="*"

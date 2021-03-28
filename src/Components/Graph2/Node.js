@@ -13,8 +13,10 @@ const Node = ({ node }) => {
     size = 15;
   }
 
+  console.log(node.getIsVisible());
+
   return (
-    <>
+    <g style={{ display: `${node.getIsVisible() ? '' : 'none'}` }} >
       <circle
         onClick={node.changeSelection}
         fill={node.getColor() ? node.getColor() : 'white'}
@@ -33,7 +35,7 @@ const Node = ({ node }) => {
           {node.id}
         </text>
       </g>
-    </>
+    </g>
   );
 };
 

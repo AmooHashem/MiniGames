@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 
 import GraphComponent from '../../Components/Graph2';
 import { toPersianNumber } from '../../utils/translateNumber'
-import { graphs } from './script';
+import { graphs } from './script2';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -57,7 +57,7 @@ function index() {
     } else {
       if (graphs[tab].isMatchingValid()) {
         if (graphs[tab].calculateGameTheoryAnswer()) {
-          toast.success('ایول! خوب اهداکننده‌ها و بیمارهارو به هم وصل کردی.');
+          toast.success('ایول! جوابت درسته.');
         } else {
           toast.error('این‌جوری انتخاب کنی بهتر نیست؟ :)');
         }

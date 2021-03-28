@@ -7,8 +7,6 @@ const Line = ({ link, ...restProps }) => {
     link.setRerender(() => rerender(Math.random()));
   }, [])
 
-  console.log(link.getIsAnswer())
-
   return (
     <>
       <line

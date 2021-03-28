@@ -3,11 +3,13 @@ const MAXIMUM_NUMBER_OF_NODES = 20;
 class Node {
   neighborsId = [];
   isSelected = false;
+  isVisible = true;
   rerender = () => { }
 
-  constructor({ id, color }) {
+  constructor({ id, color = 'black', isVisible = true }) {
     this.color = color;
     this.id = id;
+    this.isVisible = isVisible;
   }
 
   addNeighbor(nodeId) {
@@ -17,6 +19,10 @@ class Node {
     }
     this.neighborsId.push(nodeId);
     this.rerender();
+  }
+
+  getIsVisible() {
+    return this.isVisible;
   }
 
   removerNeighbor(nodeId) {
@@ -66,6 +72,7 @@ class Node {
     return ({
       id: this.id,
       isSelected: this.isSelected,
+      getIsVisible: this.getIsVisible.bind(this),
       changeSelection: this.changeSelection.bind(this),
       getIsSelected: this.getIsSelected.bind(this),
       getColor: this.getColor.bind(this),
@@ -357,7 +364,7 @@ export class MyGraph {
     for (const answer of this.answer) {
       for (const link of answer) {
         const linkObject = this.getLink(link[0], link[1]);
-        if (!this.getSelectedLinks().includes(linkObject)) {
+        if (!this.getSelectedLinks().includes(linkObject) && !linkObject.disabled) {
           this.colorDesiredLinks(answer);
           return false;
         }

@@ -57,7 +57,7 @@ function index() {
     } else {
       if (graphs[tab].isMatchingValid()) {
         if (graphs[tab].calculateGameTheoryAnswer()) {
-          toast.success('ایول! خوب اهداکننده‌ها و بیمارهارو به هم وصل کردی.');
+          toast.success('ایول! جوابت درسته.');
         } else {
           toast.error('این‌جوری انتخاب کنی بهتر نیست؟ :)');
         }
@@ -73,6 +73,24 @@ function index() {
   return (
     <Grid className={classes.container}>
       {Graph}
+      {/* <div className={classes.top_left}>
+        <Grid container direction='column' spacing={1}>
+          <Grid item>
+            <ButtonGroup
+              orientation="vertical"
+              color="secondary"
+              variant='contained'
+              size='small'
+              fullWidth
+            >
+              <Button onClick={() => doSetTab(0)}> {'گراف اول'}</Button>
+              <Button onClick={() => doSetTab(1)}> {'گراف اول'}</Button>
+              <Button onClick={() => doSetTab(2)}> {'گراف اول'}</Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+      </div> */}
+
       <div className={classes.bottomButtons}>
         <Grid container direction='column' spacing={1}>
           <Grid item>
