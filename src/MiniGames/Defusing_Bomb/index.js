@@ -67,7 +67,6 @@ function index() {
     if (!setNumber()) return;
 
     const nextState = getNextState(currentState, inputNumber);
-    console.log(currentState, nextState, inputNumber);
 
     if (nextState == currentState + 1) {
       toast.success(`ایول! رقم ${omm[currentState]} برابر ${inputNumber} بود.`)

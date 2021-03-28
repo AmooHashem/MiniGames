@@ -169,8 +169,6 @@ export class MyGraph {
   addNewNode(color, id, isVisible) {
     const tmpId = id ? id : this.initialNodeId
     const node = new Node({ id: tmpId, color, isVisible });
-    console.log(tmpId);
-    console.log(node);
     this.nodes.push(node);
     console.log(`New node ${tmpId} added!`);
     if (!id) this.initialNodeId++;
@@ -213,7 +211,6 @@ export class MyGraph {
     for (let i = 0; i < betweenNodesNumber; i++) {
       this.addNewNode('', '', false);
       this.addLink(lastNodeId, this.initialNodeId - 1, color, thickness, true);
-      console.log(this.nodes);
       lastNodeId = this.initialNodeId - 1;
     }
     this.addLink(lastNodeId, node2Id, color, thickness, true);
@@ -371,7 +368,6 @@ export class MyGraph {
     for (let i = 0; i < linksArray.length; i++) {
       const link = this.getLink(linksArray[i][0], linksArray[i][1]);
       link.setIsAnswer(true);
-      console.log(link);
       setTimeout(() => {
         link.setIsAnswer(false);
       }, 3000)
