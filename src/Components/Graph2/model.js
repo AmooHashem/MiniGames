@@ -6,7 +6,7 @@ class Node {
   isVisible = true;
   rerender = () => { }
 
-  constructor({ id, color = 'black', isVisible = true }) {
+  constructor({ id, color = 'white', isVisible = true }) {
     this.color = color;
     this.id = id;
     this.isVisible = isVisible;
@@ -164,8 +164,8 @@ export class MyGraph {
     this.hoverOpacity = hoverOpacity;
   }
 
-  addNewNode(color, id) {
-    const node = new Node({ id: id ? id : this.initialNodeId, color });
+  addNewNode(color, id, isVisible) {
+    const node = new Node({ id: id ? id : this.initialNodeId, color, isVisible });
     this.nodes.push(node);
     console.log(`New node ${this.initialNodeId} added!`);
     id ? '' : this.initialNodeId++;
