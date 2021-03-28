@@ -155,7 +155,7 @@ class Link {
 }
 
 export class MyGraph {
-  initialNodeId = 0;
+  initialNodeId = 1;
   hoverOpacity = 1;
   answer = [];
   nodes = [];
@@ -207,8 +207,8 @@ export class MyGraph {
     }
   }
 
-  addLongLink(node1Id, node2Id, color, thickness) {
-    const betweenNodesNumber = 4;
+  addLongLink(node1Id, node2Id, color, thickness = 5) {
+    const betweenNodesNumber = 1;
     let lastNodeId = node1Id;
     for (let i = 0; i < betweenNodesNumber; i++) {
       this.addNewNode('', '', false);
@@ -379,6 +379,20 @@ export class MyGraph {
   }
 
   calculateGameTheoryAnswer() {
+    for (const answer of this.answer) {
+      for (const link of answer) {
+        const linkObject = this.getLink(link[0], link[1]);
+        if (!this.getSelectedLinks().includes(linkObject) && !linkObject.disabled) {
+          this.colorDesiredLinks(answer);
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+
+  calculateAutomataAnswer() {
     for (const answer of this.answer) {
       for (const link of answer) {
         const linkObject = this.getLink(link[0], link[1]);
