@@ -77,7 +77,7 @@ function index() {
       }
     } else {
       toast.error('ای بابا :(');
-      graphs[tab].getNode(currentState + 1).setColor('red');
+      graphs[tab].getNode(nextState + 1).setColor('red');
     }
     setCurrentState(nextState);
     setInputNumber('');
