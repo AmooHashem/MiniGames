@@ -59,7 +59,7 @@ function index() {
         if (graphs[tab].calculateGameTheoryAnswer()) {
           toast.success('ایول! جوابت درسته.');
         } else {
-          toast.error('این‌جوری انتخاب کنی بهتر نیست؟ :)');
+          toast.error('اینا علاقه دارن سیستم رو دور بزنن!');
         }
       } else {
         toast.error('توجه کن که یک اهداکننده نمی‌تونه کلیه‌ش رو به چند نفر اهدا کنه، همین‌جور یک بیمار نمی‌تونه از چندتا اهداکننده کلیه بگیره.', { autoClose: 5000 });
