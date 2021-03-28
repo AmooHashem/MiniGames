@@ -1,6 +1,6 @@
 import React, { MyGraph } from '../../Components/Graph';
 
-const myGraph = new MyGraph();
+const myGraph = new MyGraph({});
 myGraph.addNewNode();
 myGraph.addNewNode('white');
 myGraph.addNewNode();

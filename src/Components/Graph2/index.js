@@ -53,7 +53,7 @@ const index = ({ myGraph }) => {
         data={myGraph.exportData()}
         NodeComponent={Node}
         LineComponent={Link}
-        nodeDistance={100}
+        nodeDistance={300}
         enableDrag={true}
         pullIn={false}
         zoomDepth={3}

@@ -1,6 +1,6 @@
 import { MyGraph } from '../../Components/Graph';
 
-const myGraph1 = new MyGraph('Graph-1');
+const myGraph1 = new MyGraph({ name: 'Graph-1' });
 myGraph1.addNewNode('blue');
 myGraph1.addNewNode('blue');
 myGraph1.addNewNode('blue');

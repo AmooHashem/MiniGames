@@ -7,15 +7,15 @@ const Line = ({ link, ...restProps }) => {
     link.setRerender(() => rerender(Math.random()));
   }, [])
 
-  console.log(link)
+  console.log(link.getIsAnswer())
 
   return (
     <>
       <line
-        onClick={link.changeSelection}
+        onClick={!link.disabled ? link.changeSelection : ''}
         {...restProps}
-        stroke={link.getColor() ? link.getColor() : 'black'}
-        strokeWidth={link.getIsSelected() ? 6 : 2}
+        stroke={link.getIsAnswer() ? 'red' : link.getIsSelected() ? '#002fff' : link.getColor() ? link.getColor() : '#2b2b2b'}
+        strokeWidth={link.getIsAnswer() ? '5' : link.thickness}
       />
     </>
   )

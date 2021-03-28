@@ -74,18 +74,19 @@ class Node {
   }
 }
 
-
-
 class Link {
   isSelected = false;
+  disabled = false;
+  isAnswer = false;
 
   rerender = () => { }
 
-  constructor({ node1Id, node2Id, color, thickness }) {
+  constructor({ node1Id, node2Id, color, thickness, disabled }) {
     this.source = Math.min(node1Id, node2Id);
     this.target = Math.max(node1Id, node2Id);
     this.color = color;
     this.thickness = thickness;
+    this.disabled = disabled;
   }
 
   setRerender(rerender) {
@@ -120,12 +121,23 @@ class Link {
     return this.color;
   }
 
+  setIsAnswer(value) {
+    this.isAnswer = value;
+    this.rerender();
+  }
+
+  getIsAnswer() {
+    return this.isAnswer;
+  }
+
   export() {
     return ({
       source: this.source,
       target: this.target,
+      disabled: this.disabled,
       thickness: this.thickness,
       changeSelection: this.changeSelection.bind(this),
+      getIsAnswer: this.getIsAnswer.bind(this),
       getIsSelected: this.getIsSelected.bind(this),
       getColor: this.getColor.bind(this),
       setRerender: this.setRerender.bind(this),
@@ -136,6 +148,7 @@ class Link {
 export class MyGraph {
   initialNodeId = 0;
   hoverOpacity = 1;
+  answer = [];
   nodes = [];
   links = [];
 
@@ -168,13 +181,12 @@ export class MyGraph {
     return tmp ? tmp[0] : {};
   }
 
-
-  addLink(node1Id, node2Id, color, thickness) {
+  addLink(node1Id, node2Id, color, thickness, disabled) {
     const tmp = this.links.filter((link) =>
       (link.source == Math.min(node1Id, node2Id) && link.target == Math.max(node1Id, node2Id))
     ) || []
     if (tmp.length == []) {
-      this.links.push(new Link({ node1Id, node2Id, color, thickness }));
+      this.links.push(new Link({ node1Id, node2Id, color, thickness, disabled }));
       console.log("Link added successfully!");
       return true;
     } else {
@@ -328,6 +340,30 @@ export class MyGraph {
         link.unselectLink();
       }, 3000)
     }
+  }
+
+  colorDesiredLinks(linksArray) {
+    for (let i = 0; i < linksArray.length; i++) {
+      const link = this.getLink(linksArray[i][0], linksArray[i][1]);
+      link.setIsAnswer(true);
+      console.log(link);
+      setTimeout(() => {
+        link.setIsAnswer(false);
+      }, 3000)
+    }
+  }
+
+  calculateGameTheoryAnswer() {
+    for (const answer of this.answer) {
+      for (const link of answer) {
+        const linkObject = this.getLink(link[0], link[1]);
+        if (!this.getSelectedLinks().includes(linkObject)) {
+          this.colorDesiredLinks(answer);
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
 }
