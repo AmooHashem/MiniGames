@@ -73,7 +73,7 @@ function index() {
       toast.success(`ایول! رقم ${omm[currentState]} برابر ${inputNumber} بود.`)
       graphs[tab].getNode(currentState + 2).setColor(MY_COLOR);
       if (currentState == 4) {
-        toast.success(`هوووورا! بمب خنثی شد.`);
+        toast.success('ایول! رمز ماشین زمان رو پیدا کردی :)');
       }
     } else {
       toast.error('ای بابا :(');
