@@ -63,6 +63,7 @@ myGraph1.addLink(14, 17, '', 4);
 myGraph1.addLink(16, 3, '', 8);
 myGraph1.addLink(16, 11, '', 6);
 myGraph1.addLink(16, 15, '', 4);
+myGraph1.addLink(16, 13, '', 2);
 
 myGraph1.addLink(18, 11, '', 8);
 
