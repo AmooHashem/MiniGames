@@ -24,8 +24,8 @@ const MyRoute = () => {
       <Route exact path="/Tarkibiat/1" component={Tarkibiat1} />
       <Route exact path="/Tarkibiat/2" component={Tarkibiat2} />
       <Route exact path="/Tarkibiat/3" component={Tarkibiat3} />
-      <Route exact path="/Account2Points" component={Account2Points} />
       <Route exact path="/Defusing_Bomb" component={Defusing_Bomb} />
+      <Route exact path="/Account2Points" component={Account2Points} />
       <Route exact path="/Donor_Patient/1" component={Donor_Patient1} />
       <Route exact path="/Donor_Patient/2" component={Donor_Patient2} />
       <Route exact path="/Donor_Patient/3" component={Donor_Patient3} />

@@ -19,7 +19,7 @@ function index() {
     <div className={classes.div}>
       <iframe className={classes.iframe}
         title='Complexity Explorables _ Thrilling Milling Schelling Herings'
-        src='http://www.netlogoweb.org/web?http://www.netlogoweb.org/assets/modelslib/Sample%20Models/Biology/Ants.nlogo' />
+        src={`${process.env.PUBLIC_URL}/MiniGames/Ant_Colony_Optimization/Ant Lines.html`} />
     </div>
   );
 }

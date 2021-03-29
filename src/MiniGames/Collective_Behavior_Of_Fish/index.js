@@ -17,7 +17,7 @@ function index() {
   const classes = useStyles();
   return (
     <div className={classes.div}>
-      <iframe className={classes.iframe} title='Complexity Explorables _ Thrilling Milling Schelling Herings' src={`${process.env.PUBLIC_URL}/MiniGames/ComplexSystem2/Complexity Explorables _ Thrilling Milling Schelling Herings.html`} />
+      <iframe className={classes.iframe} title='Complexity Explorables _ Thrilling Milling Schelling Herings' src={`${process.env.PUBLIC_URL}/MiniGames/Collective_Behavior_Of_Fish/Complexity Explorables _ Thrilling Milling Schelling Herings.html`} />
     </div>
   );
 }
