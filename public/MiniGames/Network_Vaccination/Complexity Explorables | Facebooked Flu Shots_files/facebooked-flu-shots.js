@@ -68,7 +68,7 @@
     })
   ]
 
-  var c1 = { id: "type", name: "Radio", choices: ["شبکه‌ی اردوش-رنی", "شبکه‌ی باراباشی-آلبرت"], value: 1 }
+  var c1 = { id: "type", name: "Radio", choices: ["شبکه‌ی اردوش-رنیی", "شبکه‌ی باراباشی-آلبرت"], value: 1 }
 
 
   var radios = [
