@@ -44,6 +44,11 @@ function Homepage() {
           </a>
         </li>
         <li>
+          <a href='/Network_Vaccination'>
+            {'واکسیناسیون شبکه (سیستم‌های پیچیده)'}
+          </a>
+        </li>
+        <li>
           <a href='/Tarkibiat/1'>
             {'تطابق ۱ (ترکیبیات)'}
           </a>
