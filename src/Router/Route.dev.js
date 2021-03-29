@@ -11,6 +11,7 @@ import Donor_Patient1 from '../MiniGames/Donor_Patient1';
 import Donor_Patient2 from '../MiniGames/Donor_Patient2';
 import Donor_Patient3 from '../MiniGames/Donor_Patient3';
 import Donor_Patient4 from '../MiniGames/Donor_Patient4';
+import Game_Of_Life_Simulation from '../MiniGames/Game_Of_Life_Simulation';
 import Tarkibiat1 from '../MiniGames/Tarkibiat1';
 import Tarkibiat2 from '../MiniGames/Tarkibiat2';
 import Tarkibiat3 from '../MiniGames/Tarkibiat3';
@@ -32,6 +33,7 @@ const MyRoute = () => {
         <Route exact path="/Donor_Patient/2" component={Donor_Patient2} />
         <Route exact path="/Donor_Patient/3" component={Donor_Patient3} />
         <Route exact path="/Donor_Patient/4" component={Donor_Patient4} />
+        <Route exact path="/Game_Of_Life_Simulation" component={Game_Of_Life_Simulation} />
         <Route exact path="/" component={Landing} />
         <Route
           path="*"

@@ -39,6 +39,11 @@ function Homepage() {
           </a>
         </li>
         <li>
+          <a href='/Game_Of_Life_Simulation'>
+            {'شبیه‌ساز بازی زندگی (سیستم‌های پیچیده)'}
+          </a>
+        </li>
+        <li>
           <a href='/Tarkibiat/1'>
             {'تطابق ۱ (ترکیبیات)'}
           </a>
